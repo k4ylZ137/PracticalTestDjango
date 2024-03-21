@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+    <body>
+        <img src="{% static "images/cats_with_fire.jpg" %}" alt="Picture of the Cat">
+        <div class="MainText">
+            <h2 class="Heading">
+                All the cats are:
+            </h2>
+            {% if cats %}
+                <ul class="ListText">
+                    {% for cat in cats %}
+                        <li>{{ cat.name }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <strong> This student has no cats. </strong>
+            {% endif %}
+        </div>
+    </body>
+</html>

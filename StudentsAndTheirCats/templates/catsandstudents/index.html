@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+    {% load static %}
+<html>
+<head>
+    <title>Students & their Cats!</title>
+</head>
+<body>
+    <img class="image"
+         src="{% static "images/cat.png" %}"
+         alt="Picture of Cat">
+    <div class="mainText">
+        <h1>The Students and their Cats:</h1>
+        {% if student %}
+            <ul class="listText">
+                {% for student in students %}
+                    <li>
+                        {{ student.firstName }}{{ student.lastName }} has <strong>{{ student.cat_set.all.count }}</strong> cat{% if student.cat_set.all.count != 1 %}s{% endif %}
+                        <ul>
+                            {% for cat in student.cat_set.all|dictsort:'name' %}
+                                <li>{{ cat.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h2 class="Heading"> No students present.</h2>
+        {% endif %}
+    </div>
+    <div>
+        <a href="/templates/catsandstudents/about.html">About</a><br />
+    </div>
+</body>
+</html>
