@@ -1,23 +1,46 @@
 <!DOCTYPE html>
-    {% load static %}
+{% load static %}
+
 <html>
+<style>
+    body {
+        background: gray;
+        color: white;
+        font-family: Bahnschrift, serif;
+    }
+</style>
 <head>
     <title>Students & their Cats!</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <script>
+        function imageSwap() {
+            let ele = document.getElementById('image');
+            if (ele) {
+                if (ele.src.includes("cat.png")) {
+                    ele.src = "{% static 'images/cat.jpg' %}";
+                } else {
+                    ele.src = "{% static 'images/cat.png' %}";
+                }
+            }
+        }
+    </script>
 </head>
 <body>
     <img class="image"
+         id="image"
          src="{% static "images/cat.png" %}"
          alt="Picture of Cat">
+    <button class="btn" onclick="imageSwap()">Another Cat!</button>
     <div class="mainText">
         <h1>The Students and their Cats:</h1>
-        {% if student %}
+        {% if students %}
             <ul class="listText">
                 {% for student in students %}
                     <li>
-                        {{ student.firstName }}{{ student.lastName }} has <strong>{{ student.cat_set.all.count }}</strong> cat{% if student.cat_set.all.count != 1 %}s{% endif %}
+                        {{ student.first_name }} {{ student.last_name }} has <strong>{{ student.cat_set.all.count }}</strong> cat{% if student.cat_set.all.count != 1 %}s{% endif %}
                         <ul>
-                            {% for cat in student.cat_set.all|dictsort:'name' %}
-                                <li>{{ cat.name }}</li>
+                            {% for cat in student.cat_set.all|dictsort:'name_of_cat' %}
+                                <li>{{ cat.name_of_cat }}</li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -27,8 +50,10 @@
             <h2 class="Heading"> No students present.</h2>
         {% endif %}
     </div>
-    <div>
-        <a href="/templates/catsandstudents/about.html">About</a><br />
+    <div class="FooterText">
+        <footer>
+            <a class="linkText" href="{% url 'catsandstudents:about' %}">More about the Pets of the Students</a>
+        </footer>
     </div>
 </body>
 </html>

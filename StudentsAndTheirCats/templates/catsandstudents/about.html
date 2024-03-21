@@ -1,22 +1,36 @@
 <!DOCTYPE html>
 {% load static %}
 
+<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
 <html>
+<style>
+    body {
+        background: gray;
+        color: white;
+        font-family: Bahnschrift, serif;
+    }
+</style>
     <body>
         <img src="{% static "images/cats_with_fire.jpg" %}" alt="Picture of the Cat">
         <div class="MainText">
-            <h2 class="Heading">
+            <h1 class="Heading">
                 All the cats are:
-            </h2>
+            </h1>
             {% if cats %}
                 <ul class="ListText">
                     {% for cat in cats %}
-                        <li>{{ cat.name }}</li>
+                        <li>{{ cat.name_of_cat }}</li>
                     {% endfor %}
                 </ul>
             {% else %}
                 <strong> This student has no cats. </strong>
-            {% endif %}
+            {% endif %} <br />
         </div>
+     <div class="FooterText">
+    <footer>
+        <a class="linkText" href="/">Back to Home Page</a>
+    </footer>
+</div>
     </body>
 </html>
